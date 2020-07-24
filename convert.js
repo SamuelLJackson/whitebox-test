@@ -7,7 +7,7 @@ var convert = function (data, filename) {
      if (err) {
            console.log("writeFileSync :", err);
       }
-    console.log( filename+" file is saved!");
+    console.log( filename + " file created");
  });
 }
 

@@ -1,5 +1,8 @@
-var mysql      = require('mysql');
+var mysql = require('mysql');
+var chalk = require('chalk');
+var figlet = require('figlet');
 var { convert } = require('./convert');
+
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   port: '3306',
@@ -8,14 +11,17 @@ var connection = mysql.createConnection({
   database : 'whitebox',
 });
 
+console.log(
+    chalk.green(
+      figlet.textSync('Whitebox Challenge', { horizontalLayout: 'full' })
+    )
+  );
+
 connection.connect();
-const filename = 'test1.xlsx';
-const allUsers = require('./sample.json');
+const filename = 'result.xlsx';
 
-connection.query('select * from rates where client_id=1240', function (error, results, fields) {
+connection.query('select start_weight, end_weight, zone from rates where client_id=1240', function (error, results, fields) {
   if (error) throw error;
-  console.log(results[0]);
-
   convert(results, filename);
 });
 
